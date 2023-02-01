@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:todolist/adddata/model.dart';
 import 'package:todolist/adddata/view.dart';
 
 abstract class AddDataController extends State<AddDataView> {
+  final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+  int indexdata = 0;
   String dataLabel = "";
   String datadescription = "";
-  var datalistform = new List<String,String>(2);
+  var mydatalistform =
+      List<DataListFormModel>.filled(2, DataListFormModel("", ""));
 
-  printdata() {}
+  printdata() async {
+    final SharedPreferences pref = await _pref;
+    try {
+      mydatalistform[1] = DataListFormModel(dataLabel, datadescription);
+      pref.setString("datalist", mydatalistform[1].toJson().toString());
+    } catch (e) {
+      print(e);
+    }
+
+    var result = await _pref.then((value) => value.getString('datalist'));
+    print(result);
+
+    // print(mydatalistform[0].toJson());
+    // pref.setStringList('datamodal', ["", "", ""]);
+
+    // print(mydatalistform[0].title + " " + mydatalistform[0].description);
+  }
 }
