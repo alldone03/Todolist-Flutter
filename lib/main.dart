@@ -7,7 +7,7 @@ import 'package:todolist/todolistapp/view.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: "/adddata",
+    initialRoute: "/todoapp",
     routes: {
       '/': (context) => const HomePage(),
       '/todoapp': (context) => const TodoListAppView(),

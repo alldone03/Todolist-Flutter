@@ -24,18 +24,21 @@ class _TodoListAppViewState extends TodoListAppController {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey[200],
-                    backgroundImage: const NetworkImage(
-                      "https://i.ibb.co/QrTHd59/woman.jpg",
-                    ),
-                  ),
-                  title: const Text("Jessica Doe"),
-                  subtitle: const Text("Programmer"),
-                ),
-              ),
+              // Card(
+              //   child: FutureBuilder(
+              //     future: getdatalist(),
+              //     initialData: datalist,
+              //     builder: ((context, snapshot) {
+              //       return ListTile(
+              //         leading: CircleAvatar(
+              //           backgroundColor: Colors. grey[200],
+              //         ),
+              //         title: Text(snapshot.data.toString()),
+              //         subtitle: Text(""),
+              //       );
+              //     }),
+              //   ),
+              // ),
             ],
           ),
         ),
