@@ -24,21 +24,37 @@ class _TodoListAppViewState extends TodoListAppController {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              // Card(
-              //   child: FutureBuilder(
-              //     future: getdatalist(),
-              //     initialData: datalist,
-              //     builder: ((context, snapshot) {
-              //       return ListTile(
-              //         leading: CircleAvatar(
-              //           backgroundColor: Colors. grey[200],
-              //         ),
-              //         title: Text(snapshot.data.toString()),
-              //         subtitle: Text(""),
-              //       );
-              //     }),
-              //   ),
-              // ),
+              Card(
+                child: FutureBuilder(
+                  future: getdatalist(),
+                  builder: ((context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      var countlist = snapshot.data as List;
+                      // print(countlist);
+                      return ListView.builder(
+                        itemCount: countlist.length,
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          // var item = {};
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.grey[200],
+                            ),
+                            title: Text(countlist[index].title.toString()),
+                            subtitle:
+                                Text(countlist[index].description.toString()),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+                ),
+              ),
             ],
           ),
         ),

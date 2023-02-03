@@ -9,19 +9,27 @@ import './view.dart';
 abstract class TodoListAppController extends State<TodoListAppView> {
   final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
   // List<DataListFormModel> datalist = [];
+  List datalist = [];
   // var datalist = "";
   Future getdatalist() async {
     try {
       var result = await _pref.then((value) => value.getString('datalist'));
 
-      // print(result);
-      Map<String, dynamic> datalist = await jsonDecode(result!.toString());
-      print("ini daata ${datalist['title']}");
+      datalist = await jsonDecode(result!.toString());
     } catch (e) {
       print(e);
     }
-    // print("mydatalist : " + datalist);
-    // return datalist;
+    List<DataListFormModel> listdata = [];
+    for (var datajson in datalist) {
+      DataListFormModel modeldata = DataListFormModel(
+        datajson['title'],
+        datajson['description'],
+      );
+      listdata.add(modeldata);
+      // print("mydatalist : " + listdata.toString());
+    }
+
+    return listdata;
   }
 
   @override

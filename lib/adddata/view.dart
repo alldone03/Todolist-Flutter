@@ -58,7 +58,7 @@ class _AddDataViewState extends AddDataController {
                   child: TextFormField(
                     style: TextStyle(color: Color.fromARGB(255, 109, 111, 153)),
                     initialValue: '',
-                    maxLength: 20,
+                    maxLength: 400,
                     decoration: const InputDecoration(
                       labelText: 'Description',
                       labelStyle: TextStyle(
