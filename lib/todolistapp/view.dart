@@ -24,36 +24,55 @@ class _TodoListAppViewState extends TodoListAppController {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Card(
-                child: FutureBuilder(
-                  future: getdatalist(),
-                  builder: ((context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      var countlist = snapshot.data as List;
-                      // print(countlist);
-                      return ListView.builder(
-                        itemCount: countlist.length,
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          // var item = {};
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey[200],
+              FutureBuilder(
+                future: getdatalist(),
+                builder: ((context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    var countlist = snapshot.data as List;
+                    // print(countlist);
+                    return ListView.builder(
+                      itemCount: countlist.length,
+                      shrinkWrap: true,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        // var item = {};
+                        return Card(
+                          child: ListTile(
+                            leading: const CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                "https://i.ibb.co/PGv8ZzG/me.jpg",
+                              ),
                             ),
                             title: Text(countlist[index].title.toString()),
                             subtitle:
                                 Text(countlist[index].description.toString()),
-                          );
-                        },
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
-                ),
+                            trailing: IconButton(
+                              onPressed: () {
+                                deleteindex(index);
+                              },
+                              icon: const Icon(
+                                Icons.delete_forever,
+                                size: 24.0,
+                              ),
+                            ),
+                          ),
+                        );
+                        // ListTile(
+                        //   leading: CircleAvatar(
+                        //     backgroundColor: Colors.grey[200],
+                        //   ),
+                        //   title: Text(countlist[index].title.toString()),
+                        //   subtitle:
+                        //       Text(countlist[index].description.toString()),
+                        // );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
               ),
             ],
           ),

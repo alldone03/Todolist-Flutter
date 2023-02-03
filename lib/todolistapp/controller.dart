@@ -8,8 +8,16 @@ import './view.dart';
 
 abstract class TodoListAppController extends State<TodoListAppView> {
   final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdatalist();
+  }
+
   // List<DataListFormModel> datalist = [];
   List datalist = [];
+  List<DataListFormModel> mydatalistform = [];
   // var datalist = "";
   Future getdatalist() async {
     try {
@@ -26,16 +34,25 @@ abstract class TodoListAppController extends State<TodoListAppView> {
         datajson['description'],
       );
       listdata.add(modeldata);
-      // print("mydatalist : " + listdata.toString());
     }
 
     return listdata;
   }
+  //FIXME: error remove array
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getdatalist();
+  deleteindex(int index) async {
+    final SharedPreferences pref = await _pref;
+    dynamic res = datalist.removeAt(index);
+    print("data : ${res}");
+    Object tojson = datalist.map(
+      (e) {
+        return {
+          "title": e.title,
+          "description": e.description,
+        };
+      },
+    ).toList();
+    pref.setString("datalist", jsonEncode(tojson));
+    setState(() {});
   }
 }

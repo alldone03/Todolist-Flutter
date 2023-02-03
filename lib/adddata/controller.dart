@@ -20,7 +20,7 @@ abstract class AddDataController extends State<AddDataView> {
   String datadescription = "";
   List<DataListFormModel> mydatalistform = [];
 
-  //TODO: getter data from shareredpreference to get history data
+  //TODO: getter data from shareredpreference to get history data in controller adddata
   Future getdatahistory() async {
     var resultgetdatahistory =
         await _pref.then((value) => value.getString('datalist'));
